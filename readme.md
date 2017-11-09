@@ -1,10 +1,10 @@
 # PLMoment
 
 ## Introduction
-PLMoment is an implementation in PL/SQL for the Oracle Database to calculate the four [(mathematics) moments](https://en.wikipedia.org/wiki/Moment_(mathematics)) mean, variance (this includes standard deviation), skewness and kurtosis. It consists of a [User-defined-aggregate-Function](https://docs.oracle.com/database/122/ADOBJ/user-defined-aggregate-functions.htm#ADOBJ00607) and the necessary object types. It supports the windowing clause and [parallel query](https://docs.oracle.com/database/122/VLDBG/parallel-exec-intro.htm#VLDBG1377) via the parallel hint in SQL.
+PLMoment is an implementation in PL/SQL for the Oracle Database to calculate the four [(mathematic) moments](https://en.wikipedia.org/wiki/Moment_(mathematics)) mean, variance (this includes standard deviation), skewness and kurtosis. It consists of a [User-Defined Aggregate Function](https://docs.oracle.com/database/122/ADOBJ/user-defined-aggregate-functions.htm#ADOBJ00607) and the necessary object types. It supports the windowing clause and [parallel query](https://docs.oracle.com/database/122/VLDBG/parallel-exec-intro.htm#VLDBG1377) via the parallel hint in SQL.
 
 ## Installation
-Simply run the install script from the setup folder inside SQL*Plus.
+Simply run the install script inside SQL*Plus.
 
 ## License
 PLMoment is released under the [MIT license](https://github.com/teotiger/plutil/blob/master/license.txt).
