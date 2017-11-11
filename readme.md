@@ -17,12 +17,12 @@ PLMoment is released under the [MIT license](https://github.com/teotiger/plutil/
 | variance_p    | VAR_POP     | VAR.P     | |
 | stddev_s      | STDDEV_SAMP | STDEV.S   | |
 | stddev_p      | STDDEV_POP  | STDEV.P   | |
-| skewness_s    | 1)          | SKEW      | |
-| kurtosis_s    | 1)          | KURT      | |
-| excess_s      | 1)          | KURT      | |
+| skewness_s    |             | SKEW      | |
+| kurtosis_s    |             | KURT      | |
+| excess_s      |             | KURT      | |
 <!--| skewness_p    | 1)       | SKEW.P | |-->
 
-1) no direct function available (but with two-pass/subselects possible, see example.sql)
+For Skewness and Kurtosis/Excess there is no direct function available in Oracle. Check [example.sql](http://) for an example to calculate these ratios with two-pass/subselects.
 
 <!--
 SKEW      https://support.office.com/en-us/article/SKEW-function-bdf49d86-b1ef-4804-a046-28eaea69c9fa
