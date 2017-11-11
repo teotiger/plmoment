@@ -22,7 +22,7 @@ PLMoment is released under the [MIT license](https://github.com/teotiger/plutil/
 | excess_s      |             | KURT      | |
 <!--| skewness_p    | 1)       | SKEW.P | |-->
 
-For Skewness and Kurtosis/Excess there is no direct function available in Oracle. Check [example.sql](http://) for an example to calculate these ratios with two-pass/subselects.
+For Skewness and Kurtosis/Excess there is no direct function available in Oracle. Check [example.sql](https://github.com/teotiger/plmoment/blob/master/examples.sql) for an example to calculate these ratios with two-pass/subselects.
 
 <!--
 SKEW      https://support.office.com/en-us/article/SKEW-function-bdf49d86-b1ef-4804-a046-28eaea69c9fa
