@@ -9,15 +9,26 @@ Simply run the install script inside SQL*Plus.
 ## License
 PLMoment is released under the [MIT license](https://github.com/teotiger/plutil/blob/master/license.txt).
 
-<!--
 ## Compatibility
-excel dt. | excel eng. | ORacle | SPSS
-bei oracle => avg(xxx)/power(stddev_samp(xx))
+| PLMoment      | Oralce      | Excel(en) | Excel(de) |
+| ------------- |-------------| ----------|-----------|
+| mean          | AVG         | AVERAGE   | |
+| variance_s    | VAR_SAMP    | VAR.S     | |
+| variance_p    | VAR_POP     | VAR.P     | |
+| stddev_s      | STDDEV_SAMP | STDEV.S   | |
+| stddev_p      | STDDEV_POP  | STDEV.P   | |
+| skewness_s    | x           | SKEW      | |
+<!--| skewness_p    | 1)       | SKEW.P | |-->
+| kurtosis_s    | x           | KURT      | |
+| excess_s      | x           | KURT      | |
 
+x) no direct function available (but with two-pass/subselects possible, see example.sql)
+
+<!--
 SKEW      https://support.office.com/en-us/article/SKEW-function-bdf49d86-b1ef-4804-a046-28eaea69c9fa
 SKEW.P    https://support.office.com/en-us/article/SKEW-P-function-76530a5c-99b9-48a1-8392-26632d542fcb
 KURT      https://support.office.com/en-us/article/KURT-function-bc3a265c-5da4-4dcb-b7fd-c237789095ab
-
+-->
 ## Credits
 - wikipedia
 - hedge Fund pdf

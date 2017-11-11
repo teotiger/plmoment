@@ -11,6 +11,7 @@ plmoment as (
     from testdata
 )
 select
+  'PLMoment' as src,
   plm.moments.mean,
   plm.moments.variance_s,
   plm.moments.variance_p,
@@ -22,12 +23,24 @@ select
 from plmoment plm
 union
 select
-  avg(ora.x),
-  variance(ora.x),
-  null,
-  stddev_samp(ora.x),
-  stddev_pop(ora.x),
-  null,--t.moments.skewness_s,
-  null,--t.moments.kurtosis_s,
-  null --t.moments.excess_s
-from testdata ora;
+  sub.src,
+  sub.avg$,
+  sub.var_samp$,
+  sub.var_pop$,
+  sub.stddev_samp$,
+  sub.stddev_pop$,
+  (sum(power(sub.x-sub.avg$,3)) over() / sub.count$) / power(stddev_pop$,3),
+  null, 
+  null
+from (
+  select
+    'Oracle' as src,
+    avg(ora.x) over() as avg$,
+    var_samp(ora.x) over() as var_samp$,
+    var_pop(ora.x) over() as var_pop$,
+    stddev_samp(ora.x) over() as stddev_samp$,
+    stddev_pop(ora.x) over() as stddev_pop$,
+    count(ora.x) over () as count$,
+    ora.x
+  from testdata ora
+) sub;
