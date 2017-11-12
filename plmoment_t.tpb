@@ -58,11 +58,11 @@ begin
     --variance_s
     self.M2/(self.n-1.0),
     --variance_p
-    to_number(null),
+    self.M2/(self.n),
     --stddev_s
     sqrt( self.M2/(self.n-1.0) ),
     --stddev_p
-    to_number(null),
+    sqrt( self.M2/(self.n) ),
     --skewness_s
     sqrt(self.n) * self.M3/ power(self.M2,1.5),
     --kurtosis_s

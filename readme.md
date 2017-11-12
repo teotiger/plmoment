@@ -12,15 +12,15 @@ PLMoment is released under the [MIT license](https://github.com/teotiger/plutil/
 ## Compatibility
 | PLMoment      | Oralce      | Excel(en) | Excel(de) |
 | ------------- |-------------| ----------|-----------|
-| mean          | AVG         | AVERAGE   | |
-| variance_s    | VAR_SAMP    | VAR.S     | |
-| variance_p    | VAR_POP     | VAR.P     | |
-| stddev_s      | STDDEV_SAMP | STDEV.S   | |
-| stddev_p      | STDDEV_POP  | STDEV.P   | |
-| skewness_s    |             | SKEW      | |
-| kurtosis_s    |             | KURT      | |
-| excess_s      |             | KURT      | |
-<!--| skewness_p    | 1)       | SKEW.P | |-->
+| mean          | AVG         | AVERAGE   |           |
+| variance_s    | VAR_SAMP    | VAR.S     |           |
+| variance_p    | VAR_POP     | VAR.P     | VAR.P     |
+| stddev_s      | STDDEV_SAMP | STDEV.S   | STABW.N   |
+| stddev_p      | STDDEV_POP  | STDEV.P   | STABW.S   |
+| skewness_s    |             | SKEW      | SCHIEFE   |
+|               |             | SKEW.P    | SCHIEFE.P |
+| kurtosis_s    |             | KURT      | KURT      |
+| excess_s      |             | KURT      | KURT      ||
 
 For Skewness and Kurtosis/Excess there is no direct function available in Oracle. Check [examples.sql](https://github.com/teotiger/plmoment/blob/master/examples.sql) for an example to calculate these ratios with two-pass/subselects.
 
