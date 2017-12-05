@@ -1,0 +1,10 @@
+1. parallel 3 wirft divisor zero fehler UND
+   kurt/exc funktioniert nicht bei großen random data in parallel mode (where testid=2)
+
+2. einbinden der kurtosis_helper.fnc fehlt, insgesamt:
+  besser unterverzeichnis test/ und darin
+    - create_testdata.sql
+    - kurtosis_helper.fnc
+    - examples.sql
+
+3. readme.md anpassen => excel funktionsnamen stimmen nicht richtig bzw. prüfen!!!

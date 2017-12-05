@@ -28,14 +28,17 @@ For Skewness and Kurtosis/Excess there is no direct function available in Oracle
 SKEW      https://support.office.com/en-us/article/SKEW-function-bdf49d86-b1ef-4804-a046-28eaea69c9fa
 SKEW.P    https://support.office.com/en-us/article/SKEW-P-function-76530a5c-99b9-48a1-8392-26632d542fcb
 KURT      https://support.office.com/en-us/article/KURT-function-bc3a265c-5da4-4dcb-b7fd-c237789095ab
-
-## Credits
-- wikipedia
-- hedge Fund pdf
-- https://www.johndcook.com/blog/skewness_kurtosis/
-- https://github.com/johnmyleswhite/StreamStats.jl/blob/master/src/var.jl
 -->
 
+## Credits
+- https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance
+- https://www.thinkbrg.com/media/publication/720_McCrary_ImplementingAlgorithms_Whitepaper_20151119_WEB.pdf
+- https://www.johndcook.com/blog/skewness_kurtosis/
+- https://github.com/johnmyleswhite/StreamStats.jl/blob/master/src/moments.jl
+
 ## Version History
+Version 0.2 – November 13, 2017
+* Parallel executing added
+
 Version 0.1 – November 9, 2017
 * Initial release

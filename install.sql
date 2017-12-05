@@ -7,4 +7,6 @@ prompt => Start installation process
 @@plmoment_t.tps
 @@plmoment_t.tpb
 @@plmoment_f.fnc
+--optional
+--@@kurtosis_helper.fnc
 exit

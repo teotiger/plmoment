@@ -3,12 +3,15 @@ as
   object
   (
     mean        number,
-    variance_s  number,
     variance_p  number,
-    stddev_s    number,
+    variance_s  number,
     stddev_p    number,
+    stddev_s    number,
+    skewness_p  number,
     skewness_s  number,
+    kurtosis_p  number,
     kurtosis_s  number,
+    excess_p    number,
     excess_s    number
   );
 /
