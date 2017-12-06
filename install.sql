@@ -3,10 +3,8 @@
 --*****************************
 set scan off;
 prompt => Start installation process
-@@plmoment_out_t.tps
-@@plmoment_t.tps
-@@plmoment_t.tpb
-@@plmoment_f.fnc
---optional
---@@kurtosis_helper.fnc
+@@src/plmoment_out_t.tps
+@@src/plmoment_t.tps
+@@src/plmoment_t.tpb
+@@src/plmoment_f.fnc
 exit

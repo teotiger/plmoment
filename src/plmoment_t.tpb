@@ -6,7 +6,6 @@ static function odciaggregateinitialize(
   return number
 is
 begin
-  dbms_output.put_line('init');
   sctx:=plmoment_t(0,                   -- n
                    0.0, 0.0, 0.0, 0.0); -- M1-M4
 
@@ -18,23 +17,25 @@ member function odciaggregateiterate(
     x     in            number)
   return number
 is
-  n1 integer;
   delta number;
   delta_n number;
   delta_n2 number;
   term1 number;
+  term2 number;
 begin
-  n1:=self.n;
   self.n:=self.n+1;
+
   delta:=x-self.M1;
   delta_n:=delta/self.n;
   delta_n2:=delta_n*delta_n;
-  term1:=delta*delta_n*n1;
+  term1:=delta*delta_n*(self.n-1);
+  term2:=(self.n*self.n) - (3*self.n) + 3;
   
-  self.M1:=self.M1 + delta_n;
-  self.M4:=self.M4 + (term1 * delta_n2 * (n*n - 3*n + 3) + 6 * delta_n2 * M2 - 4 * delta_n * M3);
-  self.M3:=self.M3 + ( (term1*delta_n*(n-2)) - (3*delta_n*self.M2) );
+  self.M4:=self.M4 + (term1*delta_n2*term2) + (6*delta_n2*self.M2)
+                   - (4*delta_n*self.M3);
+  self.M3:=self.M3 + ( (term1*delta_n*(self.n-2)) - (3*delta_n*self.M2) );
   self.M2:=self.M2 + term1;
+  self.M1:=self.M1 + delta_n;
 
   return odciconst.success;
 end;
@@ -44,14 +45,18 @@ member function odciaggregatemerge(
     ctx2 in            plmoment_t)
   return number
 is
-  n number;
-  f number;
+  total number;
+  total2 number;
+  total3 number;
   delta number;
   delta2 number;
   delta3 number;
   delta4 number;
+  sn2 number;
+  cn2 number;
 begin
-  dbms_output.put_line('Cnt '||self.n);
+  dbms_output.put_line('=> Parallel Execution with n='||ctx2.n);
+
   if self.n=0 then
     self.n:=ctx2.n;
     self.M1:=ctx2.M1;
@@ -59,45 +64,28 @@ begin
     self.M3:=ctx2.M3;
     self.M4:=ctx2.M4;    
   else
-    n:=self.n+ctx2.n;
-f:=self.n+ctx2.n;
-
+    total:=self.n+ctx2.n;
+    total2:=total*total;
+    total3:=total*total2;
     delta:=ctx2.M1-self.M1;
     delta2:=delta*delta;
     delta3:=delta*delta2;
     delta4:=delta2*delta2;
+    sn2:=self.n*self.n;
+    cn2:=ctx2.n*ctx2.n;
 
-dbms_output.put_line(self.M3);
-dbms_output.put_line(ctx2.M3);
-
-    self.M1:=(self.n*self.M1 + ctx2.n*ctx2.M1) / n;
-    self.M4:=self.M4+ctx2.M4
-            +(self.n*ctx2.n*(self.n*self.n - self.n*ctx2.n + ctx2.n*ctx2.n)/n*n*n*delta4)
-            +(6*(self.n*self.n*ctx2.M2 + ctx2.n*ctx2.n*self.M2)/n*n*delta2)
-            +(4*(self.n*ctx2.M3 - ctx2.n*self.M3)/n*delta);
+    self.M4:=1;--self.M4+ctx2.M4
+--             +(delta4*self.n*ctx2.n*(sn2 - self.n*ctx2.n + cn2) / total3)
+--             +(6*delta2*(sn2*ctx2.M2 + cn2*self.M2) / total2)
+--             +(4*delta*(self.n*ctx2.M3 - ctx2.n*self.M3) / total);
     self.M3:=self.M3+ctx2.M3
-            +(self.n*ctx2.n*(self.n-ctx2.n)/(f*f)*delta3)
-            +(3.0*(self.n*ctx2.M2 - ctx2.n*self.M2)/f*delta);
-    
-    self.M2:=self.M2 + ctx2.M2 + (delta2*self.n*ctx2.n / n);
-    
-    
---    M3:=self.M3 + ctx2.M3 + (delta3*self.n*ctx2.n*(self.n-ctx2.n) / (n*n));
---    M3:=M3 + (3.0*delta*(self.n*ctx2.M2 - ctx2.n*self.M2) / n);
-
-
-    self.n:=n;
+             +(self.n*ctx2.n*(self.n-ctx2.n)/total2*delta3)
+             +(3.0*(self.n*ctx2.M2 - ctx2.n*self.M2)/total*delta);    
+    self.M2:=self.M2 + ctx2.M2 + (delta2*self.n*ctx2.n / total);
+    self.M1:=(self.n*self.M1 + ctx2.n*ctx2.M1) / total;
+    self.n:=total;
   end if;
-/*
-    combined.M3 = a.M3 + b.M3 + 
-                  delta3 * a.n * b.n * (a.n - b.n)/(combined.n*combined.n);
-    combined.M3 += 3.0*delta * (a.n*b.M2 - b.n*a.M2) / combined.n;
-     
-    combined.M4 = a.M4 + b.M4 + delta4*a.n*b.n * (a.n*a.n - a.n*b.n + b.n*b.n) / 
-                  (combined.n*combined.n*combined.n);
-    combined.M4 += 6.0*delta2 * (a.n*a.n*b.M2 + b.n*b.n*a.M2)/(combined.n*combined.n) + 
-                  4.0*delta*(a.n*b.M3 - b.n*a.M3) / combined.n;
-  */   
+
   return odciconst.success;
 end;
 --------------------------------------------------------------------------------
@@ -107,11 +95,11 @@ member function odciaggregateterminate(
     flags in            number)
   return number
 is
-  l_skewness_p number;
-  l_kurt_p number;
+  skewness_p number;
+  kurt_p number;
 begin
-  l_skewness_p:=sqrt(self.n) * self.M3 / power(self.M2,1.5);
-  l_kurt_p:=(self.n*self.M4) / (self.M2*self.M2);
+  skewness_p:=sqrt(self.n) * self.M3 / power(self.M2,1.5);
+  kurt_p:=(self.n*self.M4) / (self.M2*self.M2);
   
   o_val:=plmoment_out_t(
     --mean
@@ -119,23 +107,23 @@ begin
     --variance_p
     self.M2 / (self.n),
     --variance_s
-    self.M2 / (self.n-1.0),
+    self.M2 / (self.n-1),
     --stddev_p
     sqrt(self.M2 / (self.n)),
     --stddev_s
-    sqrt(self.M2 / (self.n-1.0)),
+    sqrt(self.M2 / (self.n-1)),
     --skewness_p
-    l_skewness_p,
+    skewness_p,
     --skewness_s
-    l_skewness_p * sqrt(self.n * (self.n-1)) / (self.n-2),
+    skewness_p * sqrt(self.n * (self.n-1)) / (self.n-2),
     --kurtosis_p
-    l_kurt_p,
+    kurt_p,
     --kurtosis_s
-    ((l_kurt_p/self.n)*self.n*(self.n+1)*(self.n-1)) / ((self.n-2)*(self.n-3)),
+    ((kurt_p/self.n)*self.n*(self.n+1)*(self.n-1)) / ((self.n-2)*(self.n-3)),
     --excess_p
-    l_kurt_p-3,
+    kurt_p-3,
     --excess_s
-    (((l_kurt_p/self.n)*self.n*(self.n+1)*(self.n-1)) / ((self.n-2)*(self.n-3)))
+    (((kurt_p/self.n)*self.n*(self.n+1)*(self.n-1)) / ((self.n-2)*(self.n-3)))
       -(3*(self.n-1)*(self.n-1) / ((self.n-2)*(self.n-3)))
   );
 
