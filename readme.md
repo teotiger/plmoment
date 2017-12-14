@@ -10,21 +10,21 @@ Simply run the install script inside SQL*Plus.
 PLMoment is released under the [MIT license](https://github.com/teotiger/plutil/blob/master/license.txt).
 
 ## Compatibility
-| PLMoment      | Oracle      | Excel (en)| Excel (de)|
-| ------------- |-------------| ----------|-----------|
-| mean          | AVG         | AVERAGE   |           |
-| variance_p    | VAR_POP     | VAR.P     | VAR.P     |
-| variance_s    | VAR_SAMP    | VAR.S     | VAR.S     |
-| stddev_p      | STDDEV_POP  | STDEV.P   | STABW.S   |
-| stddev_s      | STDDEV_SAMP | STDEV.S   | STABW.N   |
-| skewness_p    |             | SKEW.P    | SCHIEFE.P |
-| skewness_s    |             | SKEW      | SCHIEFE   |
-| kurtosis_p    |             |           |           |
-| kurtosis_s    |             |           |           |
-| excess_p      |             |           |           |
-| excess_s      |             | KURT      | KURT      |
+| PLMoment      | Oracle      | Excel (en)| Excel (de) |
+| ------------- |-------------| ----------|------------|
+| mean          | AVG         | AVERAGE   | MITTELWERT |
+| variance_p    | VAR_POP     | VAR.P     | VAR.P      |
+| variance_s    | VAR_SAMP    | VAR.S     | VAR.S      |
+| stddev_p      | STDDEV_POP  | STDEV.P   | STABW.S    |
+| stddev_s      | STDDEV_SAMP | STDEV.S   | STABW.N    |
+| skewness_p    |             | SKEW.P    | SCHIEFE.P  |
+| skewness_s    |             | SKEW      | SCHIEFE    |
+| kurtosis_p    |             |           |            |
+| kurtosis_s    |             |           |            |
+| excess_p      |             |           |            |
+| excess_s      |             | KURT      | KURT       |
 
-For Skewness and Kurtosis/Excess there is no direct function available in Oracle. Check [examples.sql](https://github.com/teotiger/plmoment/blob/master/examples.sql) for an example to calculate these ratios with two-pass/subselects.
+For Skewness and Kurtosis/Excess there is no direct function available in Oracle. Check [examples.sql](https://github.com/teotiger/plmoment/blob/master/test/examples.sql) for an example to calculate these ratios with two-pass/subselects.
 
 ## Credits
 - https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance
